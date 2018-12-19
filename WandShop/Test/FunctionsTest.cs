@@ -11,7 +11,7 @@ namespace Test
         public void CountResourcesExpenseTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { WoodPurchased = g.WoodAmountLow };
             Round r2 = new Round() { CrystalPurchased = 1 };
@@ -30,7 +30,7 @@ namespace Test
         public void CountWorkersExpenseTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { DwarfWorkers = 1, DwarfWorkersDismissed = 1, DwarfWorkersEmployed = 1};
             Round r2 = new Round() { ElfWorkers = 1, ElfWorkersDismissed = 1, ElfWorkersEmployed = 1 };
@@ -49,7 +49,7 @@ namespace Test
         public void CountMachineExpenseTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { MachinesPurchased = 1 };
             double d1 = 0;
@@ -64,7 +64,7 @@ namespace Test
         public void GetDismissedWorkerPriceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { DwarfWorkersDismissed = 1 };
             Round r2 = new Round() { ElfWorkersDismissed = 1 };
@@ -83,7 +83,7 @@ namespace Test
         public void GetEmployedWorkerPriceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { DwarfWorkersEmployed = 1 };
             Round r2 = new Round() { ElfWorkersEmployed = 1 };
@@ -102,7 +102,7 @@ namespace Test
         public void GetWorkersPriceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { DwarfWorkers = 1 };
             Round r2 = new Round() { ElfWorkers = 1 };
@@ -123,7 +123,7 @@ namespace Test
         public void GetWoodPriceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { WoodPurchased = g.WoodAmountLow };
             Round r2 = new Round() { WoodPurchased = ( g.WoodAmountHigh - g.WoodAmountLow) };
@@ -142,7 +142,7 @@ namespace Test
         public void GetTotalWoodPriceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { WoodPurchased = g.WoodAmountLow };
             Round r2 = new Round() { WoodPurchased = (g.WoodAmountHigh - g.WoodAmountLow) };
@@ -162,7 +162,7 @@ namespace Test
         public void GetCrystalConstCostTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { CrystalPurchased = 1 };
             Round r2 = new Round() { CrystalPurchased = 0 };
@@ -178,7 +178,7 @@ namespace Test
         public void GetTotalCrystalPriceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { CrystalPurchased = 1 };
             Round r2 = new Round() { CrystalPurchased = 100 };
@@ -194,7 +194,7 @@ namespace Test
         public void GetWoodUseTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { WandsAmount = 0 };
             Round r2 = new Round() { WandsAmount = 1 };
@@ -213,7 +213,7 @@ namespace Test
         public void GetCrystalUseTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { WandsAmount = 0 };
             Round r2 = new Round() { WandsAmount = 1 };
@@ -232,7 +232,7 @@ namespace Test
         public void GetAndSetAverageWoodPriceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { WoodAveragePrevious = 0, WoodPurchased = g.WoodAmountLow };
             Round r2 = new Round() { WoodAveragePrevious = 0, WoodPurchased = 0 };
@@ -254,7 +254,7 @@ namespace Test
         public void GetAndSetAverageCrystalPriceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { CrystalAveragePrevious = 0, CrystalPurchased = 1 };
             Round r2 = new Round() { CrystalAveragePrevious = 0, CrystalPurchased = 0 };
@@ -278,7 +278,7 @@ namespace Test
         public void GetTransportCostTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { WandsAmount = 10 };
             double d1 = 0;
@@ -291,7 +291,7 @@ namespace Test
         public void GetLoanRateCostTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { LoanRemaining = 100 };
             double d1 = 0;
@@ -304,7 +304,7 @@ namespace Test
         public void GetMachineDepreciationCostTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { WandsAmount = 100 };
             double d1 = 0;
@@ -317,7 +317,7 @@ namespace Test
         public void GetGeneralMaterialRateCostTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { WandsAmount = 1000, WoodPurchased = 2000, CrystalPurchased = 1000 };
             double d1 = 0;
@@ -330,7 +330,7 @@ namespace Test
         public void GetGeneralProcessingRateCostTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { ElfWorkers = 1};
             double d1 = 0;
@@ -345,7 +345,7 @@ namespace Test
         public void GetQualityFadingTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { QualityExpense = 100 };
             double d1 = 0;
@@ -358,7 +358,7 @@ namespace Test
         public void GetAdFadingTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { AdExpense = 100 };
             double d1 = 0;
@@ -371,7 +371,7 @@ namespace Test
         public void GetQualityInfluenceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { QualityExpense = 100, QualityExpensePrevious = 60 };
             double d1 = 0;
@@ -384,7 +384,7 @@ namespace Test
         public void GetAdInfluenceTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { AdExpense = 100, AdExpensePrevious = 60 };
             double d1 = 0;
@@ -399,7 +399,7 @@ namespace Test
         public void GetLoanRemainingTest()
         {
             //Przygotowanie
-            GameParams g = new GameParams();
+            GameParam g = new GameParam();
             Functions f = new Functions();
             Round r1 = new Round() { LoanRemaining = 5, LoanPaid = 5, LoanTaken  = 1};
             double d1 = 0;

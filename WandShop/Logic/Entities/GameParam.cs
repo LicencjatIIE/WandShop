@@ -3,8 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Logic.Entities
 {
-    public class GameParams
+    public class GameParam
     {
+        public int GameParamId { get; set; }
+        
+        #region Variables
         public double Tax { get; set; } = 0.4;
         public double Dividend { get; set; } = 0.5;
         public double OwnContribution { get; set; } = 2400000;
@@ -48,7 +51,9 @@ namespace Logic.Entities
 
         public double GeneralMaterialRateCosts { get; set; } = 0.1;
         public double GeneralProcessingRateCosts { get; set; } = 0.5;
-        
-        public GameParams() { }
+        #endregion
+
+
+        public GameParam() { }
     }
 }

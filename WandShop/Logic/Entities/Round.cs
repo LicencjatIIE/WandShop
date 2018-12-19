@@ -8,10 +8,12 @@ namespace Logic.Entities
     /// </summary>
     public class Round
     {
-        public string RoundID { get; set; }
-        //public Round PreviousRound { get; set; }
-        //public Member Member { get; set; }
+        public int RoundId { get; set; }
+        public int PlayerPartId { get; set; }
+        public virtual PlayerPart PlayerPart { get; set; }
 
+
+        #region Variables
         public double Gold { get; set; }
         public double LoanRemaining { get; set; }
 
@@ -58,5 +60,7 @@ namespace Logic.Entities
         public double Income { get; set; }
         public int WandsSoldAmount { get; set; }
         public int RemainingWandsAmount { get; set; }
+        #endregion
+        
     }
 }

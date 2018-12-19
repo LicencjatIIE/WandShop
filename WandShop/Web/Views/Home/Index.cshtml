@@ -1,0 +1,21 @@
+﻿@model List<Logic.Entities.Game>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table>
+    <tr>
+        <th>GameId</th>
+        <th>MaxRounds</th>
+        <th>CurrentRound</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.GameId</td>
+            <td>@item.MaxRounds</td>
+            <td>@item.CurrentRound</td>
+        </tr>
+    }
+</table>

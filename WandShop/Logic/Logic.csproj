@@ -49,11 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concrete\WandShopContext.cs" />
     <Compile Include="Entities\Functions.cs" />
     <Compile Include="Entities\Game.cs" />
-    <Compile Include="Entities\GameParams.cs" />
+    <Compile Include="Entities\GameParam.cs" />
     <Compile Include="Entities\PlayerPart.cs" />
     <Compile Include="Entities\Round.cs" />
+    <Compile Include="Migrations\201812191958097_Innitial.cs" />
+    <Compile Include="Migrations\201812191958097_Innitial.Designer.cs">
+      <DependentUpon>201812191958097_Innitial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,7 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Abstract\" />
-    <Folder Include="Concrete\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812191958097_Innitial.resx">
+      <DependentUpon>201812191958097_Innitial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
