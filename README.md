@@ -1,0 +1,2 @@
+# WandShop
+Projekt pracy licencjackiej
