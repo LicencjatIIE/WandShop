@@ -5,14 +5,14 @@ namespace Logic.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Logic.Concrete.WandShopContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Logic.Concrete.EfWandShopContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Logic.Concrete.WandShopContext context)
+        protected override void Seed(Logic.Concrete.EfWandShopContext context)
         {
             //  This method will be called after migrating to the latest version.
 

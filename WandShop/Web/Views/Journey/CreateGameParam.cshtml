@@ -1,0 +1,29 @@
+﻿@model Web.Models.CreateGameParamModel
+
+@{
+    ViewBag.Title = "Dostosuj swoją grę!";
+}
+
+<h2>Dostosuj swoją grę!</h2>
+
+@using (Html.BeginForm("CreateGameParam", "Journey"))
+{
+    <div class="panel-body">
+        @Html.HiddenFor(x => x.CreateGameParamModelId)
+        @foreach (var property in ViewData.ModelMetadata.Properties)
+        {
+            <div class="form-group">
+                <label>@(property.DisplayName ?? property.PropertyName)</label>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+                @Html.ValidationMessage(property.PropertyName)
+            </div>
+        }
+    </div>
+    <input type="submit" value="Dostosuj grę!" class="btn btn-primary" />
+    <div class="btn">
+        <!-- co tu nie działa? -->
+        @Html.ActionLink("Zostaw wartości domyślne", "Index")
+    </div>
+}
+
+

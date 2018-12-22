@@ -1,66 +1,59 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Logic.Entities
 {
-    /// <summary>
-    /// Klasa zawierająca wszystkie dane rundy
-    /// </summary>
     public class Round
     {
         public int RoundId { get; set; }
-        public int PlayerPartId { get; set; }
-        public virtual PlayerPart PlayerPart { get; set; }
 
+        //For Ef
+        public int GameId { get; set; }
+        public virtual Game Game { get; set; }
 
         #region Variables
-        public double Gold { get; set; }
-        public double LoanRemaining { get; set; }
+        public double Tax { get; set; }
+        public double Dividend { get; set; }
 
-        public int WoodReserves { get; set; }
-        public int CrystalReserves { get; set; }
+        public double InterestRate { get; set; }
 
-        public int WoodPurchased { get; set; }
-        public int CrystalPurchased { get; set; }
+        public double WoodPriceLow { get; set; }
+        public double WoodPriceMedium { get; set; }
+        public double WoodPriceHigh { get; set; }
+        public double CrystalPrice { get; set; }
+        public double CrystalPriceConst { get; set; }
+        public double WoodConsumption { get; set; }
+        public double CrystalConsumption { get; set; }
+        public double PerfectStickConsumption { get; set; }
+        public double PerfectGemConsumption { get; set; }
+        public int WoodAmountLow { get; set; }
+        public int WoodAmountHigh { get; set; }
 
-        public double WoodAverage { get; set; }
-        public double CrystalAverage { get; set; }
-        public double WoodAveragePrevious { get; set; }
-        public double CrystalAveragePrevious { get; set; }
+        public int HoursPerPeriod { get; set; }
+        public double EmploymentPrice { get; set; }
+        public double DismissalPrice { get; set; }
+        public double WorkerDwarfPrice { get; set; }
+        public double WorkerElfPrice { get; set; }
+        public double WorkerHumanPrice { get; set; }
+        public double WorkerDwarfEfficiency { get; set; }
+        public double WorkerElfEfficiency { get; set; } 
+        public double WorkerHumanEfficiency { get; set; }
 
-        
-        public int MachinesOwned { get; set; }
-        
-        public int MachinesPurchased { get; set; }
-        
-        public int MachinesSold { get; set; }
+        public double MachinePrice { get; set; }
+        public int CrystalEfficiency { get; set; }
+        public double Depreciation { get; set; } 
+        public double MaxCrystalEfficiency { get; set; } 
 
-        
-        public int DwarfWorkers { get; set; }
-        public int ElfWorkers { get; set; }
-        public int HumanWorkers { get; set; }
-        public int DwarfWorkersEmployed { get; set; }
-        public int ElfWorkersEmployed { get; set; }
-        public int HumanWorkersEmployed { get; set; }
-        public int DwarfWorkersDismissed { get; set; }
-        public int ElfWorkersDismissed { get; set; }
-        public int HumanWorkersDismissed { get; set; }
+        public double QualityFading { get; set; } 
+        public double AdFading { get; set; }
+        public double ManagementCosts { get; set; } 
+        public double TransportCosts { get; set; } 
 
-        public double QualityExpense { get; set; }
-        public double AdExpense { get; set; }
-        public double QualityExpensePrevious { get; set; }
-        public double AdExpensePrevious { get; set; }
-
-        public double LoanPaid { get; set; }
-        public double LoanTaken { get; set; }
-        
-        public double WandPrice { get; set; }
-        public int WandsAmount { get; set; }
-
-        public double Income { get; set; }
-        public int WandsSoldAmount { get; set; }
-        public int RemainingWandsAmount { get; set; }
+        public double GeneralMaterialRateCosts { get; set; } 
+        public double GeneralProcessingRateCosts { get; set; }
         #endregion
-        
     }
 }

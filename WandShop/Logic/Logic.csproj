@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,15 +50,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Concrete\WandShopContext.cs" />
-    <Compile Include="Entities\Functions.cs" />
+    <Compile Include="Abstract\IGameRepository.cs" />
+    <Compile Include="Abstract\IPlayerPartRepository.cs" />
+    <Compile Include="Abstract\IPlayerRepository.cs" />
+    <Compile Include="Abstract\IPlayerRoundRepository.cs" />
+    <Compile Include="Abstract\IRoundRepository.cs" />
+    <Compile Include="Concrete\EfGameRepository.cs" />
+    <Compile Include="Concrete\EfPlayerPartRepository.cs" />
+    <Compile Include="Concrete\EfPlayerRepository.cs" />
+    <Compile Include="Concrete\EfRoundRepository.cs" />
+    <Compile Include="Concrete\EfWandShopContext.cs" />
+    <Compile Include="Concrete\EfPlayerRoundRepository.cs" />
     <Compile Include="Entities\Game.cs" />
-    <Compile Include="Entities\GameParam.cs" />
+    <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\PlayerPart.cs" />
+    <Compile Include="Entities\PlayerRound.cs" />
     <Compile Include="Entities\Round.cs" />
     <Compile Include="Migrations\201812191958097_Innitial.cs" />
     <Compile Include="Migrations\201812191958097_Innitial.Designer.cs">
       <DependentUpon>201812191958097_Innitial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812211202072_Second.cs" />
+    <Compile Include="Migrations\201812211202072_Second.Designer.cs">
+      <DependentUpon>201812211202072_Second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812221001513_Third.cs" />
+    <Compile Include="Migrations\201812221001513_Third.Designer.cs">
+      <DependentUpon>201812221001513_Third.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,12 +85,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstract\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201812191958097_Innitial.resx">
       <DependentUpon>201812191958097_Innitial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812211202072_Second.resx">
+      <DependentUpon>201812211202072_Second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812221001513_Third.resx">
+      <DependentUpon>201812221001513_Third.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

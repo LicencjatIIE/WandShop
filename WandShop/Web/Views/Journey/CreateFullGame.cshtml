@@ -1,0 +1,27 @@
+﻿@model Web.Models.CreateFullGameModel
+
+@{
+    ViewBag.Title = "CreateFullGame";
+}
+
+<h2>Dodaj grę</h2>
+@using (Html.BeginForm("CreateFullGame", "Journey"))
+{
+    <div class="panel-body">
+        @Html.HiddenFor(x => x.GameId)
+        @foreach (var property in ViewData.ModelMetadata.Properties)
+        {
+            <div class="form-group">
+                @if (property.PropertyName != "GameId" && property.PropertyName != "CreateGameParamModel")
+                {
+                    <label>@(property.DisplayName ?? property.PropertyName)</label>
+                        @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+                        @Html.ValidationMessage(property.PropertyName)
+                }
+            </div>
+        }
+    </div>
+    <input type="submit" value="Dodaj" class="btn btn-primary" />
+    @Html.ActionLink("Anuluj i wróc do listy", "Index", null, new { @class = "btn btn-default" })
+}
+

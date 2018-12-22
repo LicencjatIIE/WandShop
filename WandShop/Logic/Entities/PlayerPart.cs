@@ -10,45 +10,38 @@ namespace Logic.Entities
     {
         public int PlayerPartId { get; set; }
         public int CurrentRound { get; set; } = 0;
-
-
+        
         //For EF
-        public virtual List<Round> Rounds { get; set; } = new List<Round>();
-        public int GameId { get; set; } = 0;
+        public virtual List<PlayerRound> PlayerRounds { get; set; } = new List<PlayerRound>();
+        public int GameId { get; set; }
         public virtual Game Game { get; set; }
-        public int GameParamId { get; set; }
-        public virtual GameParam GameParam { get; set; }
+        public virtual Player Player { get; set; }
+        
 
 
-        public PlayerPart() {}
-        public PlayerPart(GameParam gameParams)
-        {
-            GameParam = gameParams;
-        }
-
-
+        /*
         //To pewnie przeniesie się do repozytorium
         public void NextRound()
         {
             FinishRound();
-            Round nextRound = new Round()
+            PlayerRound nextRound = new PlayerRound()
             {
-                Gold = Rounds[CurrentRound].Gold - CountAllExpenses(Rounds[CurrentRound]) + CountYourTruePoorProfit(Rounds[CurrentRound]),
-                LoanRemaining = GetLoanRemaining(Rounds[CurrentRound]),
-                WoodReserves = Rounds[CurrentRound].WoodPurchased - GetWoodUse(Rounds[CurrentRound]) + Rounds[CurrentRound].WoodReserves,
-                CrystalReserves = Rounds[CurrentRound].CrystalPurchased - GetCrystalUse(Rounds[CurrentRound]) + Rounds[CurrentRound].CrystalReserves,
+                Gold = PlayerRounds[CurrentRound].Gold - CountAllExpenses(PlayerRounds[CurrentRound]) + CountYourTruePoorProfit(PlayerRounds[CurrentRound]),
+                LoanRemaining = GetLoanRemaining(PlayerRounds[CurrentRound]),
+                WoodReserves = PlayerRounds[CurrentRound].WoodPurchased - GetWoodUse(PlayerRounds[CurrentRound]) + PlayerRounds[CurrentRound].WoodReserves,
+                CrystalReserves = PlayerRounds[CurrentRound].CrystalPurchased - GetCrystalUse(PlayerRounds[CurrentRound]) + PlayerRounds[CurrentRound].CrystalReserves,
                 WoodPurchased = 0,
                 CrystalPurchased = 0,
                 WoodAverage = 0,
                 CrystalAverage = 0,
-                WoodAveragePrevious = GetAndSetAverageWoodPrice(Rounds[CurrentRound]),
-                CrystalAveragePrevious = GetAndSetAverageCrystalPrice(Rounds[CurrentRound]),
-                MachinesOwned = Rounds[CurrentRound].MachinesPurchased - Rounds[CurrentRound].MachinesSold + Rounds[CurrentRound].MachinesOwned,
+                WoodAveragePrevious = GetAndSetAverageWoodPrice(PlayerRounds[CurrentRound]),
+                CrystalAveragePrevious = GetAndSetAverageCrystalPrice(PlayerRounds[CurrentRound]),
+                MachinesOwned = PlayerRounds[CurrentRound].MachinesPurchased - PlayerRounds[CurrentRound].MachinesSold + PlayerRounds[CurrentRound].MachinesOwned,
                 MachinesPurchased = 0,
                 MachinesSold = 0,
-                DwarfWorkers = Rounds[CurrentRound].DwarfWorkers - Rounds[CurrentRound].DwarfWorkersDismissed + Rounds[CurrentRound].DwarfWorkersEmployed,
-                ElfWorkers = Rounds[CurrentRound].ElfWorkers - Rounds[CurrentRound].ElfWorkersDismissed + Rounds[CurrentRound].ElfWorkersEmployed,
-                HumanWorkers = Rounds[CurrentRound].HumanWorkers - Rounds[CurrentRound].HumanWorkersDismissed + Rounds[CurrentRound].HumanWorkersEmployed,
+                DwarfWorkers = PlayerRounds[CurrentRound].DwarfWorkers - PlayerRounds[CurrentRound].DwarfWorkersDismissed + PlayerRounds[CurrentRound].DwarfWorkersEmployed,
+                ElfWorkers = PlayerRounds[CurrentRound].ElfWorkers - PlayerRounds[CurrentRound].ElfWorkersDismissed + PlayerRounds[CurrentRound].ElfWorkersEmployed,
+                HumanWorkers = PlayerRounds[CurrentRound].HumanWorkers - PlayerRounds[CurrentRound].HumanWorkersDismissed + PlayerRounds[CurrentRound].HumanWorkersEmployed,
                 DwarfWorkersEmployed = 0,
                 ElfWorkersEmployed = 0,
                 HumanWorkersEmployed = 0,
@@ -57,27 +50,27 @@ namespace Logic.Entities
                 HumanWorkersDismissed = 0,
                 QualityExpense = 0,
                 AdExpense = 0,
-                QualityExpensePrevious = GetQualityFading(Rounds[CurrentRound]),
-                AdExpensePrevious = GetAdFading(Rounds[CurrentRound]),
+                QualityExpensePrevious = GetQualityFading(PlayerRounds[CurrentRound]),
+                AdExpensePrevious = GetAdFading(PlayerRounds[CurrentRound]),
                 LoanPaid = 0,
                 LoanTaken = 0,
                 WandsAmount = 0,
                 WandPrice = 0,
                 WandsSoldAmount = 0,
                 Income = 0,
-                RemainingWandsAmount = CountRemainingWandsAmount(Rounds[CurrentRound])
+                RemainingWandsAmount = CountRemainingWandsAmount(PlayerRounds[CurrentRound])
             };
             CurrentRound++;
 
-            Rounds.Add(nextRound);
+            PlayerRounds.Add(nextRound);
         }
         public void FinishRound()
         {
-            Rounds[CurrentRound].Income = CountIncome(Rounds[CurrentRound]);
+            PlayerRounds[CurrentRound].Income = CountIncome(PlayerRounds[CurrentRound]);
         }
         public void SetStartingRound()
         {
-            Round startingRound = new Round()
+            PlayerRound startingRound = new PlayerRound()
             {
                 Gold = GameParam.OwnContribution + GameParam.Loan + GameParam.ForeignShares - GameParam.BuildingCost,
                 LoanRemaining = GameParam.Loan,
@@ -113,38 +106,37 @@ namespace Logic.Entities
                 Income = 0,
                 RemainingWandsAmount = 0
             };
-            Rounds.Add(startingRound);
+            PlayerRounds.Add(startingRound);
         }
 
-
         #region Functions
-        public double CountResourcesExpense(Round round)
+        public double CountResourcesExpense(PlayerRound round)
         {
             return GetTotalWoodPrice(round) + GetTotalCrystalPrice(round);
         }
-        public double CountWorkersExpense(Round round)
+        public double CountWorkersExpense(PlayerRound round)
         {
             return GetDismissedWorkerPrice(round) + GetEmployedWorkerPrice(round) + GetWorkersPrice(round);
         }
-        public double CountMachineExpense(Round round)
+        public double CountMachineExpense(PlayerRound round)
         {
             return round.MachinesPurchased * GameParam.MachinePrice;
         }
 
-        public double GetDismissedWorkerPrice(Round round)
+        public double GetDismissedWorkerPrice(PlayerRound round)
         {
             return (round.DwarfWorkersDismissed + round.ElfWorkersDismissed + round.HumanWorkersDismissed) * GameParam.DismissalPrice;
         }
-        public double GetEmployedWorkerPrice(Round round)
+        public double GetEmployedWorkerPrice(PlayerRound round)
         {
             return (round.DwarfWorkersEmployed + round.ElfWorkersEmployed + round.HumanWorkersEmployed) * GameParam.EmploymentPrice;
         }
-        public double GetWorkersPrice(Round round)
+        public double GetWorkersPrice(PlayerRound round)
         {
             return GameParam.HoursPerPeriod * (round.DwarfWorkers * GameParam.WorkerDwarfPrice + round.ElfWorkers * GameParam.WorkerElfPrice + round.HumanWorkers * GameParam.WorkerHumanPrice);
         }
 
-        public double GetWoodPrice(Round round)
+        public double GetWoodPrice(PlayerRound round)
         {
             if (round.WoodPurchased <= GameParam.WoodAmountLow)
                 return GameParam.WoodPriceHigh;
@@ -152,29 +144,29 @@ namespace Logic.Entities
                 return GameParam.WoodPriceLow;
             return GameParam.WoodPriceMedium;
         }
-        public double GetTotalWoodPrice(Round round)
+        public double GetTotalWoodPrice(PlayerRound round)
         {
             return round.WoodPurchased * GetWoodPrice(round);
         }
-        public double GetCrystalConstCost(Round round)
+        public double GetCrystalConstCost(PlayerRound round)
         {
             if (round.CrystalPurchased > 0)
                 return GameParam.CrystalPriceConst;
             return 0;
         }
-        public double GetTotalCrystalPrice(Round round)
+        public double GetTotalCrystalPrice(PlayerRound round)
         {
             return round.CrystalPurchased * GameParam.CrystalPrice + GetCrystalConstCost(round); ;
         }
-        public int GetWoodUse(Round round)
+        public int GetWoodUse(PlayerRound round)
         {
             return round.WandsAmount * (int)GameParam.WoodConsumption;
         }
-        public int GetCrystalUse(Round round)
+        public int GetCrystalUse(PlayerRound round)
         {
             return round.WandsAmount * (int)GameParam.CrystalConsumption;
         }
-        public double GetAndSetAverageWoodPrice(Round round)
+        public double GetAndSetAverageWoodPrice(PlayerRound round)
         {
             if (round.WoodAveragePrevious == 0)
             {
@@ -188,7 +180,7 @@ namespace Logic.Entities
             }
             return round.WoodAverage;
         }
-        public double GetAndSetAverageCrystalPrice(Round round)
+        public double GetAndSetAverageCrystalPrice(PlayerRound round)
         {
             if (round.CrystalAveragePrevious == 0)
             {
@@ -203,88 +195,89 @@ namespace Logic.Entities
             return round.CrystalAverage;
         }
 
-        public double GetTransportCost(Round round)
+        public double GetTransportCost(PlayerRound round)
         {
             return round.WandsAmount * GameParam.TransportCosts;
         }
-        public double GetGeneralMaterialRateCost(Round round)
+        public double GetGeneralMaterialRateCost(PlayerRound round)
         {
             return (GetWoodUse(round) * GetAndSetAverageWoodPrice(round) * GetCrystalUse(round) * GetAndSetAverageCrystalPrice(round)) * GameParam.GeneralMaterialRateCosts;
         }
-        public double GetGeneralProcessingRateCost(Round round)
+        public double GetGeneralProcessingRateCost(PlayerRound round)
         {
             return GetWorkersPrice(round) * GameParam.GeneralProcessingRateCosts;
             //return CountWorkersExpense(round) * GameParams.GeneralProcessingRateCosts;
         }
-        public double GetMachineDepreciationCost(Round round)
+        public double GetMachineDepreciationCost(PlayerRound round)
         {
             return round.WandsAmount * GameParam.Depreciation;
         }
-        public double GetLoanRateCost(Round round)
+        public double GetLoanRateCost(PlayerRound round)
         {
             return round.LoanRemaining * GameParam.InterestRate;
         }
 
-        public double GetQualityFading(Round round)
+        public double GetQualityFading(PlayerRound round)
         {
             return GetQualityInfluence(round) * GameParam.QualityFading;
         }
-        public double GetAdFading(Round round)
+        public double GetAdFading(PlayerRound round)
         {
             return GetAdInfluence(round) * GameParam.AdFading;
         }
-        public double GetQualityInfluence(Round round)
+        public double GetQualityInfluence(PlayerRound round)
         {
             return (round.QualityExpense + round.QualityExpensePrevious);
         }
-        public double GetAdInfluence(Round round)
+        public double GetAdInfluence(PlayerRound round)
         {
             return (round.AdExpense + round.AdExpensePrevious);
         }
 
-        public double GetLoanRemaining(Round round)
+        public double GetLoanRemaining(PlayerRound round)
         {
             return round.LoanRemaining - round.LoanPaid + round.LoanTaken;
         }
 
-        public double CountAllExpenses(Round round)
+        public double CountAllExpenses(PlayerRound round)
         {
             return CountResourcesExpense(round) + CountWorkersExpense(round) + CountMachineExpense(round) +
                 GetTransportCost(round) + GetGeneralMaterialRateCost(round) + GetGeneralProcessingRateCost(round) + GetLoanRateCost(round) +
                 round.LoanPaid + round.AdExpense + round.QualityExpense + GameParam.ManagementCosts;
         }
 
-        public double CountIncome(Round round)
+        public double CountIncome(PlayerRound round)
         {
             return 0;
         }
-        public double CountAllCosts(Round round)
+        public double CountAllCosts(PlayerRound round)
         {
             double d = CountResourcesExpense(round) + CountWorkersExpense(round) + GetMachineDepreciationCost(round) +
                 GetTransportCost(round) + GetGeneralMaterialRateCost(round) + GetGeneralProcessingRateCost(round) + GetLoanRateCost(round) +
                 round.AdExpense + round.QualityExpense + GameParam.ManagementCosts;
             return d;
         }
-        public double CountProfit(Round round)
+        public double CountProfit(PlayerRound round)
         {
             return (round.Income - CountAllCosts(round));// > 0) ? round.Income - CountAllCosts(round) : 0;
         }
-        public double CountPaymentForTheLord(Round round)
+        public double CountPaymentForTheLord(PlayerRound round)
         {
             return CountProfit(round) > 0 ? CountProfit(round) * GameParam.Tax : 0;
         }
-        public double CountPaymentForMages(Round round)
+        public double CountPaymentForMages(PlayerRound round)
         {
             return CountProfit(round) > 0 ? (CountProfit(round) - CountPaymentForTheLord(round)) * GameParam.Dividend : 0;
         }
-        public double CountYourTruePoorProfit(Round round)
+        public double CountYourTruePoorProfit(PlayerRound round)
         {
             return CountProfit(round) > 0 ? (CountProfit(round) - CountPaymentForMages(round) - CountPaymentForTheLord(round)) : 0;
         }
-        public int CountRemainingWandsAmount(Round round)
+        public int CountRemainingWandsAmount(PlayerRound round)
         {
             return round.WandsAmount - round.WandsSoldAmount;
         }
         #endregion
+        */
     }
 }

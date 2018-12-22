@@ -1,0 +1,31 @@
+﻿@model Web.Models.GameListViewModel
+
+@{
+    ViewBag.Title = "Lista Twoich gier";
+}
+
+<h2>Pełna lista gier</h2>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id gry</th>
+            <th scope="col">Max liczba rund</th>
+            <th scope="col">Aktualna runda</th>
+            <th scope="col">Ilość graczy</th>
+            <th scope="col">Sprawdź szczegóły</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.Games)
+    {
+        <tr>
+            <td>@item.GameId</td>
+            <td>@item.MaxRounds</td>
+            <td>@item.CurrentRound</td>
+            <td>@item.PlayersPart.Count</td>
+            <td>@Html.ActionLink("Sprawdź", "Check", new { item.GameId })</td>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Dodaj grę", "CreateFullGame", null, new { @class = "btn-group" })
+
