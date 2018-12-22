@@ -18,12 +18,11 @@ namespace Logic.Entities
 
         public int MaxRounds { get; set; }
         
-        public int CurrentRound { get; set; } = 1;
+        public int CurrentRound { get; set; } = 0;
 
         //For EF
         public virtual List<PlayerPart> PlayersPart { get; set; } = new List<PlayerPart>();
         public virtual List<Round> Rounds { get; set; } = new List<Round>();
-
 
         #region Variables
         public double Tax { get; set; } = 0.4;

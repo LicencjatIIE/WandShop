@@ -1,14 +1,18 @@
-﻿using System;
+﻿using Logic.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Web.Models
 {
     public class CreateGameParamModel
     {
-        public int CreateGameParamModelId { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public int GameId { get; set; }
+        
         [Required]
         [Range(0.2, 0.6, ErrorMessage = "Proszę podać liczbę z zakresu 0.2 do 0.6")]
         [Display(Name = "Podatek")]
@@ -41,5 +45,6 @@ namespace Web.Models
         [Range(5, 15, ErrorMessage = "Proszę podać liczbę z zakresu 5 do 15")]
         [Display(Name = "Koszt transportu poj. różdżki")]
         public double TransportCosts { get; set; } = 10;
+        
     }
 }

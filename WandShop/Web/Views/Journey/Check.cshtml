@@ -1,0 +1,17 @@
+﻿@model Web.Models.GameViewModel
+
+@{
+    ViewBag.Title = "Gra";
+}
+
+<h2>Co chcesz zrobić z grą?</h2>
+@Model.Game.GameId
+<div>
+    @Html.ActionLink("Rozpocznik grę", "Begin", new { Model.Game.GameId }, new { @class = "btn btn-default" })
+</div>
+<div>
+    @Html.ActionLink("Następna runda", "NextRound", new { Model.Game.GameId }, new { @class = "btn btn-default" })
+</div>
+<div>
+    @Html.ActionLink("Anuluj i wróc do listy", "Index", null, new { @class = "btn btn-default" })
+</div>

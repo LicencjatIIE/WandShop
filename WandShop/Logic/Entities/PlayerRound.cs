@@ -57,11 +57,11 @@ namespace Logic.Entities
         public double LoanTaken { get; set; }
         
         public double WandPrice { get; set; }
-        public int WandsAmount { get; set; }
+        public int WandsProducedAmount { get; set; }
 
         public double Income { get; set; }
         public int WandsSoldAmount { get; set; }
-        public int RemainingWandsAmount { get; set; }
+        public int WandsReservesAmount { get; set; }
         #endregion
         
     }

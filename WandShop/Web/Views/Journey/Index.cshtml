@@ -22,7 +22,7 @@
             <td>@item.MaxRounds</td>
             <td>@item.CurrentRound</td>
             <td>@item.PlayersPart.Count</td>
-            <td>@Html.ActionLink("Sprawdź", "Check", new { item.GameId })</td>
+            <td>@Html.ActionLink("Sprawdź", "Check", new {gameId = Web.Models.Encryption.encrypt(item.GameId.ToString()) })</td>
         </tr>
     }
 </table>

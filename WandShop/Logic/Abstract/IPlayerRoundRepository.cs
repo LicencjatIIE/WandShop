@@ -10,6 +10,6 @@ namespace Logic.Abstract
     public interface IPlayerRoundRepository
     {
         IEnumerable<PlayerRound> PlayerRounds { get; }
-        void SavePlayerRound(PlayerRound playerRound);
+        void SavePlayerRound(int playerPartID, PlayerRound playerRound);
     }
 }

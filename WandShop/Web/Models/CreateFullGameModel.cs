@@ -29,7 +29,7 @@ namespace Web.Models
         public Game ConvertToGame()
         {
             Game game = new Game();
-            game.CurrentRound = 1;
+            game.CurrentRound = 0;
             game.MaxRounds = MaxRounds;
             return game;
         }

@@ -193,9 +193,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Models\GameViewModel.cs" />
     <Compile Include="Models\CreateFullGameModel.cs" />
     <Compile Include="Models\CreateGameParamModel.cs" />
     <Compile Include="Models\GameListViewModel.cs" />
+    <Compile Include="Models\Encryption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +215,7 @@
     <Content Include="Views\Journey\Index.cshtml" />
     <Content Include="Views\Journey\CreateFullGame.cshtml" />
     <Content Include="Views\Journey\CreateGameParam.cshtml" />
+    <Content Include="Views\Journey\Check.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

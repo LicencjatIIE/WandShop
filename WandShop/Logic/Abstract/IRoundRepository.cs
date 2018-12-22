@@ -10,6 +10,6 @@ namespace Logic.Abstract
     public interface IRoundRepository
     {
         IEnumerable<Round> Rounds { get; }
-        void SaveRound(Round round);
+        void SaveRound(int gameId,Round round);
     }
 }

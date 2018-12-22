@@ -11,6 +11,7 @@ namespace Logic.Abstract
     {
         IEnumerable<Game> Games { get; }
         Game SaveGame(Game game);
+        Game DeleteGame(int gameId);
 
     }
 }

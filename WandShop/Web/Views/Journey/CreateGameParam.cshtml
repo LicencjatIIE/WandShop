@@ -9,13 +9,17 @@
 @using (Html.BeginForm("CreateGameParam", "Journey"))
 {
     <div class="panel-body">
-        @Html.HiddenFor(x => x.CreateGameParamModelId)
+        @Html.HiddenFor(x => x.GameId)
         @foreach (var property in ViewData.ModelMetadata.Properties)
         {
+
             <div class="form-group">
-                <label>@(property.DisplayName ?? property.PropertyName)</label>
-                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
-                @Html.ValidationMessage(property.PropertyName)
+                @if (property.PropertyName != "GameId" && property.PropertyName != "CreateGameParamModel")
+                {
+                    <label>@(property.DisplayName ?? property.PropertyName)</label>
+                    @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+                    @Html.ValidationMessage(property.PropertyName)
+                }
             </div>
         }
     </div>
