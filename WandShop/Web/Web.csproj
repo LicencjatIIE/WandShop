@@ -188,6 +188,7 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ExploreController.cs" />
     <Compile Include="Controllers\JourneyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,6 +199,8 @@
     <Compile Include="Models\CreateGameParamModel.cs" />
     <Compile Include="Models\GameListViewModel.cs" />
     <Compile Include="Models\Encryption.cs" />
+    <Compile Include="Models\PlayerPlayRoundModel.cs" />
+    <Compile Include="Models\PlayerRoundViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +219,11 @@
     <Content Include="Views\Journey\CreateFullGame.cshtml" />
     <Content Include="Views\Journey\CreateGameParam.cshtml" />
     <Content Include="Views\Journey\Check.cshtml" />
+    <Content Include="Views\Explore\Index.cshtml" />
+    <Content Include="Views\Explore\Act.cshtml" />
+    <Content Include="Views\Explore\Games.cshtml" />
+    <Content Include="Views\Explore\Round.cshtml" />
+    <Content Include="Views\Explore\Play.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

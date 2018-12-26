@@ -72,7 +72,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Game game = gameRepository.Games.First(x => x.GameId == model.GameId);
+                Game game = gameRepository.Games.FirstOrDefault(x => x.GameId == model.GameId);
                 game.Tax = model.Tax;
                 game.Dividend = model.Dividend;
                 game.OwnContribution = model.OwnContribution;
@@ -97,7 +97,7 @@ namespace Web.Controllers
             int id = Int32.Parse(Encryption.decrypt(gameId));
             GameViewModel model = new GameViewModel()
             {
-                Game = gameRepository.Games.First(x => x.GameId == id)
+                Game = gameRepository.Games.FirstOrDefault(x => x.GameId == id)
             };
             return View(model);
         }
@@ -105,7 +105,7 @@ namespace Web.Controllers
         {
             if (gameId != 0)
             {
-                Game game = gameRepository.Games.First(x => x.GameId == gameId);
+                Game game = gameRepository.Games.FirstOrDefault(x => x.GameId == gameId);
                 if (game != null)
                 {
                     if (game.CurrentRound == 0)
@@ -120,7 +120,7 @@ namespace Web.Controllers
         {
             if (gameId != 0)
             {
-                Game game = gameRepository.Games.First(x => x.GameId == gameId);
+                Game game = gameRepository.Games.FirstOrDefault(x => x.GameId == gameId);
                 if (game != null)
                 {
                     if (game.CurrentRound < game.MaxRounds && game.CurrentRound > 0)
@@ -131,13 +131,27 @@ namespace Web.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        public ActionResult FinishGame(int gameId)
+        {
+            if (gameId != 0)
+            {
+                Game game = gameRepository.Games.FirstOrDefault(x => x.GameId == gameId);
+                if (game != null)
+                {
+                    if (game.CurrentRound == game.MaxRounds)
+                    {
+                        FinishGame(game);
+                    }
+                }
+            }
+            return RedirectToAction("Index");
+        }
 
         private Game BeginGame(Game game)
         {
-            Game model = gameRepository.Games.First(x => x.GameId == game.GameId);
+            Game model = gameRepository.Games.FirstOrDefault(x => x.GameId == game.GameId);
 
-            roundRepository.SaveRound(game.GameId, new Round());
+            roundRepository.SaveRound(model.GameId, new Round());
             foreach (var pP in model.PlayersPart)
             {
                 pP.CurrentRound = 0;
@@ -151,8 +165,9 @@ namespace Web.Controllers
         }
         private Game NextRound(Game game)
         {
-            Game model = gameRepository.Games.First(x => x.GameId == game.GameId);
+            Game model = gameRepository.Games.FirstOrDefault(x => x.GameId == game.GameId);
             roundRepository.SaveRound(model.GameId, new Round());
+
             foreach (var pP in model.PlayersPart)
             {
                 FinishRound(pP);
@@ -162,14 +177,69 @@ namespace Web.Controllers
             gameRepository.SaveGame(model);
             return model;
         }
-
-        public void FinishRound(PlayerPart pP)
+        private Game FinishGame(Game game)
         {
-            //pP.PlayerRounds[pP.CurrentRound].Income = pP.CountIncome(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound);
+            foreach (var pP in game.PlayersPart)
+            {
+                FinishRound(pP);
+                playerRepository.DeletePlayer(pP.PlayerPartId);
+            }
+            Game model = gameRepository.DeleteGame(game.GameId);
+            //TODO CreateArch
+
+            return model;
+        }
+
+        public void FinishRound(PlayerPart playerPart)
+        {
+            PlayerPart pP = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == playerPart.PlayerPartId);
+            PlayerRound nextRound = new PlayerRound()
+            {
+                Gold = pP.PlayerRounds[pP.CurrentRound].Gold,
+                LoanRemaining = pP.PlayerRounds[pP.CurrentRound].LoanRemaining,
+                WoodReserves = pP.PlayerRounds[pP.CurrentRound].WoodReserves,
+                CrystalReserves = pP.PlayerRounds[pP.CurrentRound].CrystalReserves,
+                WoodPurchased = pP.PlayerRounds[pP.CurrentRound].WoodPurchased,
+                CrystalPurchased = pP.PlayerRounds[pP.CurrentRound].CrystalPurchased,
+                WoodAverage = pP.GetAndSetAverageWoodPrice(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound),
+                CrystalAverage = pP.GetAndSetAverageCrystalPrice(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound),
+                WoodAveragePrevious = pP.PlayerRounds[pP.CurrentRound].WoodAveragePrevious,
+                CrystalAveragePrevious = pP.PlayerRounds[pP.CurrentRound].CrystalAveragePrevious,
+                MachinesOwned = pP.PlayerRounds[pP.CurrentRound].MachinesOwned,
+                MachinesPurchased = pP.PlayerRounds[pP.CurrentRound].MachinesPurchased,
+                MachinesSold = pP.PlayerRounds[pP.CurrentRound].MachinesSold,
+                DwarfWorkers = pP.PlayerRounds[pP.CurrentRound].DwarfWorkers,
+                ElfWorkers = pP.PlayerRounds[pP.CurrentRound].ElfWorkers,
+                HumanWorkers = pP.PlayerRounds[pP.CurrentRound].HumanWorkers,
+                DwarfWorkersEmployed = pP.PlayerRounds[pP.CurrentRound].DwarfWorkersEmployed,
+                ElfWorkersEmployed = pP.PlayerRounds[pP.CurrentRound].ElfWorkersEmployed,
+                HumanWorkersEmployed = pP.PlayerRounds[pP.CurrentRound].HumanWorkersEmployed,
+                DwarfWorkersDismissed = pP.PlayerRounds[pP.CurrentRound].DwarfWorkersDismissed,
+                ElfWorkersDismissed = pP.PlayerRounds[pP.CurrentRound].ElfWorkersDismissed,
+                HumanWorkersDismissed = pP.PlayerRounds[pP.CurrentRound].HumanWorkersDismissed,
+                QualityExpense = pP.PlayerRounds[pP.CurrentRound].QualityExpense,
+                AdExpense = pP.PlayerRounds[pP.CurrentRound].AdExpense,
+                QualityExpensePrevious = pP.PlayerRounds[pP.CurrentRound].QualityExpensePrevious,
+                AdExpensePrevious = pP.PlayerRounds[pP.CurrentRound].AdExpensePrevious,
+                LoanPaid = pP.PlayerRounds[pP.CurrentRound].LoanPaid,
+                LoanTaken = pP.PlayerRounds[pP.CurrentRound].LoanTaken,
+                WandsProducedAmount = pP.PlayerRounds[pP.CurrentRound].WandsProducedAmount,
+                WandPrice = pP.PlayerRounds[pP.CurrentRound].WandPrice,
+                WandsSoldAmount = pP.CountWandsSoldAmount(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound),
+                Income = pP.CountIncome(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound),
+                WandsReservesAmount = pP.CountWandsRemainingAmount(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound),
+                PlayerRoundNumber = pP.PlayerRounds[pP.CurrentRound].PlayerRoundNumber,
+                PlayerPartId = pP.PlayerPartId,
+                PlayerPart = pP,
+                PlayerRoundId = pP.PlayerRounds[pP.CurrentRound].PlayerRoundId
+        };
+            playerRoundRepository.SavePlayerRound(pP.PlayerPartId, nextRound);
         }
         public void SetNextRound(PlayerPart playerPart)
         {
-            PlayerPart pP = playerPartRepository.PlayerParts.First(x => x.PlayerPartId == playerPart.PlayerPartId);
+            PlayerPart pP = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == playerPart.PlayerPartId);
+            PlayerRound g = playerRoundRepository.SavePlayerRound(pP.PlayerPartId, new PlayerRound());
+            
             PlayerRound nextRound = new PlayerRound()
             {
                 Gold = pP.CountRemainingGold(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound),
@@ -204,7 +274,11 @@ namespace Web.Controllers
                 WandPrice = 0,
                 WandsSoldAmount = 0,
                 Income = 0,
-                WandsReservesAmount = pP.CountWandsRemainingAmount(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound)
+                WandsReservesAmount = pP.CountWandsRemainingAmount(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound),
+                PlayerRoundNumber = pP.PlayerRounds[pP.CurrentRound].PlayerRoundNumber + 1,
+                PlayerPartId = g.PlayerPartId,
+                PlayerRoundId = g.PlayerRoundId,
+                PlayerPart = g.PlayerPart
             };
             playerRoundRepository.SavePlayerRound(pP.PlayerPartId, nextRound);
 
@@ -213,7 +287,7 @@ namespace Web.Controllers
         }
         public void SetStartingRound(PlayerPart playerPart)
         {
-            PlayerPart pP = playerPartRepository.PlayerParts.First(x => x.PlayerPartId == playerPart.PlayerPartId);
+            PlayerPart pP = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == playerPart.PlayerPartId);
             PlayerRound startingRound = new PlayerRound()
             {
                 Gold = pP.Game.OwnContribution + pP.Game.Loan + pP.Game.ForeignShares - pP.Game.BuildingCost,
@@ -248,7 +322,8 @@ namespace Web.Controllers
                 WandPrice = 0,
                 WandsSoldAmount = 0,
                 Income = 0,
-                WandsReservesAmount = 0
+                WandsReservesAmount = 0,
+                PlayerRoundNumber = 1
             };
             playerRoundRepository.SavePlayerRound(pP.PlayerPartId, startingRound);
         }

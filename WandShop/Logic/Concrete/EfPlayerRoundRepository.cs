@@ -13,7 +13,7 @@ namespace Logic.Concrete
         private EfWandShopContext context = new EfWandShopContext();
         public IEnumerable<PlayerRound> PlayerRounds { get { return context.PlayerRounds; } }
 
-        public void SavePlayerRound(int playerPartId, PlayerRound playerRound)
+        public PlayerRound SavePlayerRound(int playerPartId, PlayerRound playerRound)
         {
             if (playerRound.PlayerRoundId == 0)
             {
@@ -24,10 +24,13 @@ namespace Logic.Concrete
                     dbEntry.PlayerPartId = pP.PlayerPartId;
                     dbEntry.PlayerPart = pP;
                     context.PlayerRounds.Add(playerRound);
+                    context.SaveChanges();
+                    return dbEntry;
                 }
             }
             else
             {
+                PlayerPart pP = context.PlayerParts.Find(playerPartId);
                 PlayerRound dbEntry = context.PlayerRounds.Find(playerRound.PlayerRoundId);
                 if (dbEntry != null)
                 {
@@ -64,9 +67,14 @@ namespace Logic.Concrete
                     dbEntry.WoodAveragePrevious = playerRound.WoodAveragePrevious;
                     dbEntry.WoodPurchased = playerRound.WoodPurchased;
                     dbEntry.WoodReserves = playerRound.WoodReserves;
+                    dbEntry.PlayerRoundNumber = playerRound.PlayerRoundNumber;
+                    dbEntry.PlayerPartId = pP.PlayerPartId;
+                    dbEntry.PlayerPart = pP;
+                    context.SaveChanges();
+                    return dbEntry;
                 }
             }
-            context.SaveChanges();
+            return new PlayerRound();
         }
 
     }

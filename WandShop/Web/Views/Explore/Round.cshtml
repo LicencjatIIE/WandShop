@@ -1,0 +1,22 @@
+﻿@model Web.Models.PlayerRoundViewModel
+
+@{
+    ViewBag.Title = "Round";
+}
+
+<h2>Round</h2>
+<div class="panel-body">
+    @foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+        <div class="form-group">
+            <label>@(property.DisplayName ?? property.PropertyName)</label>
+            @Html.Label(property.Model.ToString(), null, new { @class = "form-control" })
+        </div>
+    }
+</div>
+<div>
+    @Html.ActionLink("Wróć", "Games", null ,new { @class = "btn btn-primary" })
+</div>
+
+
+

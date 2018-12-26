@@ -13,6 +13,17 @@ namespace Logic.Concrete
         private EfWandShopContext context = new EfWandShopContext();
         public IEnumerable<Player> Players { get { return context.Players; } }
 
+        public Player DeletePlayer(int playerId)
+        {
+            Player p = context.Players.Find(playerId);
+            if (p != null)
+            {
+                context.Players.Remove(p);
+                context.SaveChanges();
+            }
+            return p;
+        }
+
         public void SavePlayer(int playerPartId, Player player)
         {
             if (player.PlayerId == 0)

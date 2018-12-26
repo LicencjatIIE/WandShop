@@ -14,6 +14,7 @@ namespace Logic.Entities
         public int PlayerPartId { get; set; }
         public virtual PlayerPart PlayerPart { get; set; }
 
+        public int PlayerRoundNumber { get; set; } = 1;
 
         #region Variables
         public double Gold { get; set; }

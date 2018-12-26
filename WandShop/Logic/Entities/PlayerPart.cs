@@ -184,7 +184,7 @@ namespace Logic.Entities
 
         public double CountIncome(PlayerRound round, int currentRound )
         {
-            return 0;
+            return CountWandsSoldAmount(round, currentRound) * round.WandPrice;
         }
         public double CountAllCosts(PlayerRound round, int currentRound )
         {
@@ -205,18 +205,50 @@ namespace Logic.Entities
         {
             return CountProfit(round, CurrentRound) > 0 ? (CountProfit(round, CurrentRound) - CountPaymentForTheLord(round, CurrentRound)) * Game.Rounds[currentRound].Dividend : 0;
         }
+
+        /// <summary>
+        /// To będzie funkcja wyniku by sprawdzić kto wygra.
+        /// </summary>
+        /// <param name="round"></param>
+        /// <param name="currentRound"></param>
+        /// <returns></returns>
         public double CountYourTruePoorProfit(PlayerRound round, int currentRound )
         {
-            return CountProfit(round, CurrentRound) > 0 ? (CountProfit(round, CurrentRound) - CountPaymentForMages(round, CurrentRound) - CountPaymentForTheLord(round, CurrentRound)) : 0;
+            return CountProfit(round, CurrentRound) - CountPaymentForMages(round, CurrentRound) - CountPaymentForTheLord(round, CurrentRound);
         }
         public int CountWandsRemainingAmount(PlayerRound round, int currentRound )
         {
             return round.WandsProducedAmount + round.WandsReservesAmount - round.WandsSoldAmount;
         }
-
         public double CountRemainingGold(PlayerRound round, int currentRound)
         {
-            return 0;
+            return Math.Round(round.Gold - CountAllExpenses(round, currentRound) + CountIncome(round, currentRound) - CountPaymentForMages(round, CurrentRound) - CountPaymentForTheLord(round, CurrentRound), 2);
+        }
+        //TODO To jest najważniejsza funkcja do wrzucenia
+        public int CountWandsSoldAmount(PlayerRound round, int currentRound)
+        {
+            return round.WandsProducedAmount;
+        }
+        public int GetMaxWandProdction(PlayerRound round, int currentRound)
+        {
+            int max = Int32.MaxValue;
+
+            if (round.WoodReserves / (int)Game.Rounds[currentRound].WoodConsumption <= max)
+                max = round.WoodReserves / (int)Game.Rounds[currentRound].WoodConsumption;
+            if (round.CrystalReserves / (int)Game.Rounds[currentRound].CrystalConsumption <= max)
+                max = round.CrystalReserves / (int)Game.Rounds[currentRound].CrystalConsumption;
+            
+            if (round.MachinesOwned * (int)Game.Rounds[currentRound].CrystalEfficiency <= max)
+                max = round.CrystalReserves * (int)Game.Rounds[currentRound].CrystalEfficiency;
+
+            if (round.ElfWorkers * (int)Game.Rounds[currentRound].WorkerElfEfficiency * Game.Rounds[currentRound].HoursPerPeriod <= max)
+                max = round.ElfWorkers * (int)Game.Rounds[currentRound].WorkerElfEfficiency * Game.Rounds[currentRound].HoursPerPeriod;
+            if (round.DwarfWorkers * (int)Game.Rounds[currentRound].WorkerDwarfEfficiency * Game.Rounds[currentRound].HoursPerPeriod <= max)
+                max = round.DwarfWorkers * (int)Game.Rounds[currentRound].WorkerDwarfEfficiency * Game.Rounds[currentRound].HoursPerPeriod;
+            if (round.HumanWorkers * (int)Game.Rounds[currentRound].WorkerHumanEfficiency * Game.Rounds[currentRound].HoursPerPeriod <= max)
+                max = round.HumanWorkers * (int)Game.Rounds[currentRound].WorkerHumanEfficiency * Game.Rounds[currentRound].HoursPerPeriod;
+
+            return max;
         }
         #endregion
     }

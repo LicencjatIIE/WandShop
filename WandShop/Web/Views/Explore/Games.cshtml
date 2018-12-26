@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Logic.Entities.PlayerRound>
+
+@{
+    ViewBag.Title = "Games";
+}
+
+<h2>Games</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Numer rundy
+        </th>
+        <th>
+            Szczegóły
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerRoundNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Sprawdź","Round", new { playerRoundIndex  = item.PlayerRoundId})
+        </td>
+    </tr>
+}
+</table>

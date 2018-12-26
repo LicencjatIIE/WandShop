@@ -19,7 +19,7 @@ namespace Web.Models
         public int MaxRounds { get; set; }
 
         [Required]
-        [Range(2, 4, ErrorMessage = "Proszę podać liczbę z zakresu od 2 do 4")]
+        [Range(1, 4, ErrorMessage = "Proszę podać liczbę z zakresu od 2 do 4")]
         [Display(Name = "Ilość graczy")]
         public int PlayersNumber { get; set; }
 

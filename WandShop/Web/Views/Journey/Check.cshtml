@@ -13,5 +13,8 @@
     @Html.ActionLink("Następna runda", "NextRound", new { Model.Game.GameId }, new { @class = "btn btn-default" })
 </div>
 <div>
+    @Html.ActionLink("Zakończ grę", "FinishGame", new { Model.Game.GameId }, new { @class = "btn btn-default" })
+</div>
+<div>
     @Html.ActionLink("Anuluj i wróc do listy", "Index", null, new { @class = "btn btn-default" })
 </div>

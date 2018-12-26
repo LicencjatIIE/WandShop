@@ -15,7 +15,13 @@ namespace Logic.Concrete
 
         public Game DeleteGame(int gameId)
         {
-            throw new NotImplementedException();
+            Game g = context.Games.Find(gameId);
+            if (g != null)
+            {
+                context.Games.Remove(g);
+                context.SaveChanges();
+            }
+            return g;
         }
 
         public Game SaveGame(Game game)

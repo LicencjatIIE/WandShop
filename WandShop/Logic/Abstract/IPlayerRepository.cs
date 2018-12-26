@@ -12,5 +12,6 @@ namespace Logic.Abstract
 
         IEnumerable<Player> Players { get; }
         void SavePlayer(int playerPartId, Player player);
+        Player DeletePlayer(int playerId);
     }
 }
