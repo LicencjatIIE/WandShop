@@ -133,7 +133,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="FunctionsTest.cs" />
+    <Compile Include="PlayerPartTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,6 @@ namespace Web.Models
 {
     public class PlayerPlayRoundModel
     {
-
         [HiddenInput(DisplayValue = false)]
         public int PlayerPartId { get; set; }
 

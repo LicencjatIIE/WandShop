@@ -91,7 +91,6 @@ namespace Web.Controllers
             }
         }
 
-
         public ActionResult Check(string gameId)
         {
             int id = Int32.Parse(Encryption.decrypt(gameId));
@@ -101,6 +100,7 @@ namespace Web.Controllers
             };
             return View(model);
         }
+
         public ActionResult Begin(int gameId)
         {
             if (gameId != 0)
@@ -149,33 +149,33 @@ namespace Web.Controllers
 
         private Game BeginGame(Game game)
         {
-            Game model = gameRepository.Games.FirstOrDefault(x => x.GameId == game.GameId);
+            //Game model = gameRepository.Games.FirstOrDefault(x => x.GameId == game.GameId);
 
-            roundRepository.SaveRound(model.GameId, new Round());
-            foreach (var pP in model.PlayersPart)
+            roundRepository.SaveRound(game.GameId, new Round());
+            foreach (var pP in game.PlayersPart)
             {
                 pP.CurrentRound = 0;
                 playerPartRepository.SavePlayerPart(pP);
                 SetStartingRound(pP);
             }
-            model.CurrentRound++;
-            gameRepository.SaveGame(model);
+            game.CurrentRound++;
+            gameRepository.SaveGame(game);
 
             return game;
         }
         private Game NextRound(Game game)
         {
-            Game model = gameRepository.Games.FirstOrDefault(x => x.GameId == game.GameId);
-            roundRepository.SaveRound(model.GameId, new Round());
+            //Game model = gameRepository.Games.FirstOrDefault(x => x.GameId == game.GameId);
+            roundRepository.SaveRound(game.GameId, new Round());
 
-            foreach (var pP in model.PlayersPart)
+            foreach (var pP in game.PlayersPart)
             {
                 FinishRound(pP);
                 SetNextRound(pP);
             }
-            model.CurrentRound++;
-            gameRepository.SaveGame(model);
-            return model;
+            game.CurrentRound++;
+            gameRepository.SaveGame(game);
+            return game;
         }
         private Game FinishGame(Game game)
         {
@@ -185,14 +185,13 @@ namespace Web.Controllers
                 playerRepository.DeletePlayer(pP.PlayerPartId);
             }
             Game model = gameRepository.DeleteGame(game.GameId);
-            //TODO CreateArch
 
             return model;
         }
 
-        public void FinishRound(PlayerPart playerPart)
+        public void FinishRound(PlayerPart pP)
         {
-            PlayerPart pP = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == playerPart.PlayerPartId);
+            //PlayerPart pP = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == playerPart.PlayerPartId);
             PlayerRound nextRound = new PlayerRound()
             {
                 Gold = pP.PlayerRounds[pP.CurrentRound].Gold,
@@ -235,11 +234,10 @@ namespace Web.Controllers
         };
             playerRoundRepository.SavePlayerRound(pP.PlayerPartId, nextRound);
         }
-        public void SetNextRound(PlayerPart playerPart)
+        public void SetNextRound(PlayerPart pP)
         {
-            PlayerPart pP = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == playerPart.PlayerPartId);
+            //PlayerPart pP = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == playerPart.PlayerPartId);
             PlayerRound g = playerRoundRepository.SavePlayerRound(pP.PlayerPartId, new PlayerRound());
-            
             PlayerRound nextRound = new PlayerRound()
             {
                 Gold = pP.CountRemainingGold(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound),
@@ -285,9 +283,9 @@ namespace Web.Controllers
             pP.CurrentRound++;
             playerPartRepository.SavePlayerPart(pP);
         }
-        public void SetStartingRound(PlayerPart playerPart)
+        public void SetStartingRound(PlayerPart pP)
         {
-            PlayerPart pP = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == playerPart.PlayerPartId);
+            //PlayerPart pP = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == playerPart.PlayerPartId);
             PlayerRound startingRound = new PlayerRound()
             {
                 Gold = pP.Game.OwnContribution + pP.Game.Loan + pP.Game.ForeignShares - pP.Game.BuildingCost,

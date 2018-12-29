@@ -37,9 +37,9 @@ namespace Logic.Concrete
                     dbEntry.AdExpense = playerRound.AdExpense;
                     dbEntry.AdExpensePrevious = playerRound.AdExpensePrevious;
                     dbEntry.CrystalAverage = playerRound.CrystalAverage;
-                    dbEntry.CrystalAveragePrevious = playerRound.CrystalPurchased;
+                    dbEntry.CrystalAveragePrevious = playerRound.CrystalAveragePrevious;
                     dbEntry.CrystalReserves = playerRound.CrystalReserves;
-                    dbEntry.DwarfWorkers = playerRound.DwarfWorkers;
+                    dbEntry.CrystalPurchased = playerRound.CrystalPurchased;
                     dbEntry.DwarfWorkers = playerRound.DwarfWorkers;
                     dbEntry.DwarfWorkersDismissed = playerRound.DwarfWorkersDismissed;
                     dbEntry.DwarfWorkersEmployed = playerRound.DwarfWorkersEmployed;

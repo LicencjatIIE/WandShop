@@ -46,7 +46,7 @@ namespace Logic.Entities
         public int WoodAmountLow { get; set; } = 30000;
         public int WoodAmountHigh { get; set; } = 100000;
 
-        public int HoursPerPeriod { get; set; } = 640 * 4;
+        public int HoursPerPeriod { get; set; } = 640;// * 4;
         public double EmploymentPrice { get; set; } = 1200;
         public double DismissalPrice { get; set; } = 1000;
         public double WorkerDwarfPrice { get; set; } = 13;
@@ -57,7 +57,7 @@ namespace Logic.Entities
         public double WorkerHumanEfficiency { get; set; } = 0.5;
 
         public double MachinePrice { get; set; } = 115200;
-        public int CrystalEfficiency { get; set; } = 320 * 4;
+        public int CrystalEfficiency { get; set; } = 320;// * 4;
         public double Depreciation { get; set; } = 3;
         public double MaxCrystalEfficiency { get; set; } = 38400;
 

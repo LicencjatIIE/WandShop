@@ -137,7 +137,7 @@ namespace Logic.Entities
         }
         public double GetGeneralMaterialRateCost(PlayerRound round, int currentRound )
         {
-            return (GetWoodUse(round, CurrentRound) * GetAndSetAverageWoodPrice(round, CurrentRound) *
+            return (GetWoodUse(round, CurrentRound) * GetAndSetAverageWoodPrice(round, CurrentRound) +
                 GetCrystalUse(round, CurrentRound) * GetAndSetAverageCrystalPrice(round, CurrentRound)) * Game.Rounds[currentRound].GeneralMaterialRateCosts;
         }
         public double GetGeneralProcessingRateCost(PlayerRound round, int currentRound )

@@ -17,7 +17,6 @@ namespace Web.Controllers
         private IPlayerRoundRepository playerRoundRepository;
         private IRoundRepository roundRepository;
 
-
         public ExploreController(
             IGameRepository gameRepository,
             IPlayerPartRepository playerPartRepository,
@@ -41,7 +40,7 @@ namespace Web.Controllers
         {
             if(player != null)
             {
-                var p = playerRepository.Players.Where(x => x.Login == player.Login && x.Password == player.Password).FirstOrDefault();
+                Player p = playerRepository.Players.Where(x => x.Login == player.Login && x.Password == player.Password).FirstOrDefault();
                 if (p != null)
                 {
                     Session["PlayerId"] = p.PlayerId;
@@ -63,8 +62,8 @@ namespace Web.Controllers
             if (!AccessFirst())
                 return View("Index");
 
-            List<PlayerRound> pr = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == (int)Session["PlayerId"]).PlayerRounds;
-            return View(pr);
+            //PlayerRoundsViewModel pr = new PlayerRoundsViewModel(playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == (int)Session["PlayerId"]).PlayerRounds);
+            return View(new PlayerRoundsViewModel(playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == (int)Session["PlayerId"]).PlayerRounds));
         }
         public ActionResult Round(int playerRoundIndex)
         {
@@ -133,7 +132,6 @@ namespace Web.Controllers
 
         public ActionResult Logout()
         {
-            //Session["PlayerId"] = null;
             Session.Abandon();
             return View("Index");
         }

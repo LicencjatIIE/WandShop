@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Logic.Entities.PlayerRound>
+﻿@model Web.Models.PlayerRoundsViewModel
 
 @{
     ViewBag.Title = "Games";
@@ -15,7 +15,7 @@
             Szczegóły
         </th>
     </tr>
-@foreach (var item in Model) {
+@foreach (var item in Model.PlayerRoundStructs) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.PlayerRoundNumber)
