@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Web.Models;
+using Web.Helpers;
 
 namespace Web.Controllers
 {
@@ -49,7 +50,6 @@ namespace Web.Controllers
             }
             return View("Index");
         }
-
         public ActionResult Act()
         {
             if(!AccessFirst())
@@ -61,8 +61,6 @@ namespace Web.Controllers
         {
             if (!AccessFirst())
                 return View("Index");
-
-            //PlayerRoundsViewModel pr = new PlayerRoundsViewModel(playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == (int)Session["PlayerId"]).PlayerRounds);
             return View(new PlayerRoundsViewModel(playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == (int)Session["PlayerId"]).PlayerRounds));
         }
         public ActionResult Round(int playerRoundIndex)
@@ -93,12 +91,24 @@ namespace Web.Controllers
         {
             if (!AccessFirst())
                 return View("Index");
-
-            if (ModelState.IsValid)
+            if (ModelState.IsValid )
             {
                 PlayerPart pp = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == (int)Session["PlayerId"]);
-                pp = SaveRound(pp, model);
-                return View("Act");
+
+                model.SetLoanRemaining(pp.PlayerRounds[pp.CurrentRound].LoanRemaining);
+                model.ValidationMes = new List<string>();
+                model.ValidationMes = Validation.PlayerPlayRoundValidation(model, pp);
+                if(model.ValidationMes.Count == 0)
+                {
+                    SavePlayerPart(pp, UpdatePlayerRound(pp, model));
+                    return View("Act");
+                }
+                else
+                {
+                    PlayerPlayRoundModel pprm = new PlayerPlayRoundModel(playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == (int)Session["PlayerId"]), model);
+                    return View(pprm);
+                }
+
             }
             else
             {
@@ -106,10 +116,23 @@ namespace Web.Controllers
                 return View(pprm);
             }
         }
-
-        private PlayerPart SaveRound(PlayerPart pp, PlayerPlayRoundModel pprm)
+        public ActionResult Logout()
         {
-            PlayerRound pr = pp.PlayerRounds[pp.CurrentRound];
+            Session.Abandon();
+            return View("Index");
+        }
+
+        private bool AccessFirst()
+        {
+            if (Session["PlayerId"] == null || (int)Session["PlayerId"] == 0)
+                return false;
+            return true;
+        }
+
+        #region Helpers
+        public static PlayerRound UpdatePlayerRound(PlayerPart pP, PlayerPlayRoundModel pprm)
+        {
+            PlayerRound pr = pP.PlayerRounds[pP.CurrentRound];
             pr.WoodPurchased = pprm.WoodPurchased;
             pr.CrystalPurchased = pprm.CrystalPurchased;
             pr.MachinesPurchased = pprm.MachinesPurchased;
@@ -125,21 +148,12 @@ namespace Web.Controllers
             pr.LoanTaken = pprm.LoanTaken;
             pr.WandPrice = pprm.WandPrice;
             pr.WandsProducedAmount = pprm.WandsProducedAmount;
-
-            playerRoundRepository.SavePlayerRound(pp.PlayerPartId, pr);
-            return pp;
+            return pr;
         }
-
-        public ActionResult Logout()
+        public PlayerRound SavePlayerPart(PlayerPart pP, PlayerRound pr)
         {
-            Session.Abandon();
-            return View("Index");
+            return playerRoundRepository.SavePlayerRound(pP.PlayerPartId, pr);
         }
-        private bool AccessFirst()
-        {
-            if (Session["PlayerId"] == null || (int)Session["PlayerId"] == 0)
-                return false;
-            return true;
-        }
+        #endregion
     }
 }

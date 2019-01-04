@@ -12,6 +12,9 @@ namespace Web.Models
         [HiddenInput(DisplayValue = false)]
         public int PlayerPartId { get; set; }
 
+        public List<string> ValidationMes { get; set; } = new List<string>();
+
+
         #region ToEdit
         public int WoodPurchased { get; set; }
         public int CrystalPurchased { get; set; }
@@ -34,7 +37,7 @@ namespace Web.Models
         public double Gold { get; }
         public double GoldRemaining { get { return Gold - GoldPaid; } }
         public double GoldPaid { get; private set; }
-        public double LoanRemaining { get;  }
+        public double LoanRemaining { get; private set; }
         public int WoodReserves { get;  }
         public int CrystalReserves { get;  }
         public int MachinesOwned { get;  }
@@ -45,6 +48,10 @@ namespace Web.Models
         public PlayerPart PlayerPart { get; }
         #endregion
 
+        public void SetLoanRemaining(double loanRemaining)
+        {
+            LoanRemaining = loanRemaining;
+        }
         public double GoldPaidAfterSavingDb(int currentRound)
         {
             GoldPaid = PlayerPart.CountAllExpenses(PlayerPart.PlayerRounds[currentRound], currentRound);
@@ -108,6 +115,11 @@ namespace Web.Models
             HumanWorkers = PlayerPart.PlayerRounds[PlayerPart.CurrentRound].HumanWorkers;
             WandsReservesAmount = PlayerPart.PlayerRounds[PlayerPart.CurrentRound].WandsReservesAmount;
             PlayerPartId = PlayerPart.PlayerPartId;
+
+            foreach (var item in playerPlayRoundModel.ValidationMes)
+            {
+                ValidationMes.Add(item);
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Logic.Abstract
     public interface IPlayerPartRepository
     {
         IEnumerable<PlayerPart> PlayerParts { get; }
-        void SavePlayerPart(PlayerPart playerPart);
+        PlayerPart SavePlayerPart(PlayerPart playerPart);
         IEnumerable<PlayerPart> AddPlayerParts(int gameId, int playersNumber);
     }
 }

@@ -23,6 +23,7 @@ namespace Logic.Concrete
                     PlayerRound dbEntry = playerRound;
                     dbEntry.PlayerPartId = pP.PlayerPartId;
                     dbEntry.PlayerPart = pP;
+                    dbEntry.LoanRemaining = pP.Game.Loan;
                     context.PlayerRounds.Add(playerRound);
                     context.SaveChanges();
                     return dbEntry;

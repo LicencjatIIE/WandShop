@@ -195,7 +195,6 @@ namespace Test
         [TestMethod]
         public void GetWoodPriceTest()
         {
-
             Game g = new Game();
             g.Rounds.Add(InnitializeRound(g));
             PlayerPart pp1 = new PlayerPart() { Game = g };
@@ -207,7 +206,6 @@ namespace Test
             pp2.PlayerRounds.Add(pr2);
             PlayerRound pr3 = new PlayerRound() { WoodPurchased = g.Rounds[0].WoodAmountHigh };
             pp3.PlayerRounds.Add(pr3);
-
             double d1 = 0, d2 = 0, d3 = 0;
             //Działanie
             d1 = pp1.GetWoodPrice(pr1, 0);
@@ -542,7 +540,6 @@ namespace Test
 
             Assert.AreEqual(d1, 1);
         }
-
         [TestMethod]
         public void CountAllExpensesTest()
         {
@@ -592,7 +589,6 @@ namespace Test
             //Sprawdzenie
             Assert.AreEqual(1, 1);
         }
-
         [TestMethod]
         public void CountAllCostsTest()
         {

@@ -31,6 +31,7 @@ namespace Logic.Entities
         public double ForeignShares { get; set; } = 1000000;
 
         public double Loan { get; set; } = 600000;
+        public double MaxLoan { get; set; } = 800000;
         public double InterestRate { get; set; } = 0.08;
         public double BuildingCost { get; set; } = 1000000;
 

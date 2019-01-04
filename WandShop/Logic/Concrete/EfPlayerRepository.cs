@@ -32,7 +32,9 @@ namespace Logic.Concrete
                 Player p = new Player()
                 {
                     PlayerId = pp.PlayerPartId,
-                    PlayerPart = pp
+                    PlayerPart = pp,
+                    Login = playerPartId.ToString(),
+                    Password = playerPartId.ToString()
                 };
                 context.Players.Add(p);
             }

@@ -13,13 +13,14 @@ namespace Logic.Concrete
         private EfWandShopContext context = new EfWandShopContext();
         public IEnumerable<PlayerPart> PlayerParts { get { return context.PlayerParts; } }
 
-        public void SavePlayerPart(PlayerPart playerPart)
+        public PlayerPart SavePlayerPart(PlayerPart playerPart)
         {
             if (playerPart.PlayerPartId == 0)
             {
                 context.PlayerParts.Add(playerPart);
             }
             context.SaveChanges();
+            return playerPart;
         }
 
         public IEnumerable<PlayerPart> AddPlayerParts(int gameId, int playersNumber)

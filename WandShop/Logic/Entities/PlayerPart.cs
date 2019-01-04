@@ -188,7 +188,7 @@ namespace Logic.Entities
         }
         public double CountAllCosts(PlayerRound round, int currentRound )
         {
-            double d = CountResourcesExpense(round, CurrentRound) + CountWorkersExpense(round, CurrentRound) + GetMachineDepreciationCost(round, CurrentRound) +
+            double d = CountResourcesExpense(round, CurrentRound) + /*CountWorkersExpense(round, CurrentRound) +*/ GetMachineDepreciationCost(round, CurrentRound) +
                 GetTransportCost(round, CurrentRound) + GetGeneralMaterialRateCost(round, CurrentRound) + GetGeneralProcessingRateCost(round, CurrentRound) + GetLoanRateCost(round, CurrentRound) +
                 round.AdExpense + round.QualityExpense + Game.Rounds[currentRound].ManagementCosts;
             return d;
@@ -222,12 +222,13 @@ namespace Logic.Entities
         }
         public double CountRemainingGold(PlayerRound round, int currentRound)
         {
-            return Math.Round(round.Gold - CountAllExpenses(round, currentRound) + CountIncome(round, currentRound) - CountPaymentForMages(round, CurrentRound) - CountPaymentForTheLord(round, CurrentRound), 2);
+            return Math.Round(round.Gold - CountAllExpenses(round, currentRound) + CountIncome(round, currentRound) - CountPaymentForMages(round, CurrentRound) - CountPaymentForTheLord(round, CurrentRound), 2)
+                + round.LoanTaken;
         }
         //TODO To jest najważniejsza funkcja do wrzucenia
         public int CountWandsSoldAmount(PlayerRound round, int currentRound)
         {
-            return round.WandsProducedAmount;
+            return round.WandsProducedAmount + round.WandsReservesAmount;
         }
         public int GetMaxWandProdction(PlayerRound round, int currentRound)
         {

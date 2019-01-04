@@ -61,6 +61,7 @@
     <Compile Include="Concrete\EfRoundRepository.cs" />
     <Compile Include="Concrete\EfWandShopContext.cs" />
     <Compile Include="Concrete\EfPlayerRoundRepository.cs" />
+    <Compile Include="Entities\Archives.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\PlayerPart.cs" />
@@ -90,6 +91,10 @@
     <Compile Include="Migrations\201812231424037_Sixth.Designer.cs">
       <DependentUpon>201812231424037_Sixth.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901032346327_Seventh.cs" />
+    <Compile Include="Migrations\201901032346327_Seventh.Designer.cs">
+      <DependentUpon>201901032346327_Seventh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -116,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812231424037_Sixth.resx">
       <DependentUpon>201812231424037_Sixth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901032346327_Seventh.resx">
+      <DependentUpon>201901032346327_Seventh.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -133,6 +133,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="JourneyControllerTest.cs" />
     <Compile Include="PlayerPartTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
