@@ -34,6 +34,8 @@ namespace Web.Controllers
 
         public ActionResult Index()
         {
+            if (AccessFirst())
+                return View("Act");
             return View();
         }
         [HttpPost]
@@ -71,9 +73,10 @@ namespace Web.Controllers
             PlayerRound pr = playerRoundRepository.PlayerRounds.FirstOrDefault(x => x.PlayerRoundId == playerRoundIndex);
 
             if (pr == null)
-                return View("Games");
+                return RedirectToAction("Games");
+
             if (pr.PlayerPartId != (int)Session["PlayerId"])
-                return View("Games");
+                return RedirectToAction("Games");
 
             PlayerRoundViewModel prvm = new PlayerRoundViewModel(pr);
             return View(prvm);
@@ -83,7 +86,11 @@ namespace Web.Controllers
             if (!AccessFirst())
                 return View("Index");
 
-            PlayerPlayRoundModel pprm = new PlayerPlayRoundModel(playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == (int)Session["PlayerId"]));
+            PlayerPart pr = playerPartRepository.PlayerParts.FirstOrDefault(x => x.PlayerPartId == (int)Session["PlayerId"]);
+            if (pr.PlayerRounds.Count == 0)
+                return RedirectToAction("Act");
+
+            PlayerPlayRoundModel pprm = new PlayerPlayRoundModel(pr);
             return View(pprm);
         }
         [HttpPost]
@@ -124,6 +131,8 @@ namespace Web.Controllers
 
         private bool AccessFirst()
         {
+            //int id = playerRepository.Players.FirstOrDefault(x => x.PlayerId == (int)Session["PlayerId"]).PlayerId;
+
             if (Session["PlayerId"] == null || (int)Session["PlayerId"] == 0)
                 return false;
             return true;

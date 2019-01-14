@@ -47,7 +47,7 @@ namespace Web.Controllers
             if (ModelState.IsValid)
             {
                 Game game = SaveGame(model.ConvertToGame());
-                SavePlayers(SavePlayerPartsList(model.GameId, model.PlayersNumber));
+                SavePlayers(SavePlayerPartsList(game.GameId, model.PlayersNumber));
                 return RedirectToAction("CreateGameParam", new { gameId = game.GameId });
             }
             else

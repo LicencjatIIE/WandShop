@@ -43,5 +43,16 @@ namespace Web.Helpers
             return validationErrors;
         }
         
+        public static double TotalExpansesForThisRound(PlayerPart pP)
+        {
+            return pP.CountAllExpenses(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound);
+        }
+        public static double ForeseenExpansesForNextRound(PlayerPart nextRound, PlayerRound pR)
+        {
+            return  nextRound.GetWorkersPrice(pR, nextRound.CurrentRound)
+                + nextRound.GetGeneralProcessingRateCost(pR, nextRound.CurrentRound)
+                + nextRound.Game.Rounds[nextRound.CurrentRound].ManagementCosts
+                + nextRound.GetLoanRateCost(pR, nextRound.CurrentRound);
+        }
     }
 }

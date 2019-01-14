@@ -177,9 +177,22 @@ namespace Logic.Entities
 
         public double CountAllExpenses(PlayerRound round, int currentRound )
         {
-            return CountResourcesExpense(round, CurrentRound) + CountWorkersExpense(round, CurrentRound) + CountMachineExpense(round, CurrentRound) +
-                GetTransportCost(round, CurrentRound) + GetGeneralMaterialRateCost(round, CurrentRound) + GetGeneralProcessingRateCost(round, CurrentRound) + GetLoanRateCost(round, CurrentRound) +
-                round.LoanPaid + round.AdExpense + round.QualityExpense + Game.Rounds[currentRound].ManagementCosts;
+            return CountResourcesExpense(round, CurrentRound)
+                + CountWorkersExpense(round, CurrentRound)
+                + CountMachineExpense(round, CurrentRound)
+                + round.LoanPaid
+                + round.AdExpense
+                + round.QualityExpense
+                + CountBonusCosts(round, currentRound); 
+        }
+
+        public double CountBonusCosts(PlayerRound round, int currentRound)
+        {
+            return GetTransportCost(round, CurrentRound)
+                + GetGeneralMaterialRateCost(round, CurrentRound)
+                + GetGeneralProcessingRateCost(round, CurrentRound)
+                + GetLoanRateCost(round, CurrentRound)
+                + Game.Rounds[currentRound].ManagementCosts;
         }
 
         public double CountIncome(PlayerRound round, int currentRound )
