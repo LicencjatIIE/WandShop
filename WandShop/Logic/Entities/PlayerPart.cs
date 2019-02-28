@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Entities
 {
+    [Serializable]
     public class PlayerPart
     {
         public int PlayerPartId { get; set; }
@@ -67,7 +68,7 @@ namespace Logic.Entities
         }
         public double GetTotalCrystalPrice(PlayerRound round, int currentRound )
         {
-            return round.CrystalPurchased * Game.Rounds[currentRound].CrystalPrice + GetCrystalConstCost(round, CurrentRound); ;
+            return (round.CrystalPurchased * Game.Rounds[currentRound].CrystalPrice) + GetCrystalConstCost(round, CurrentRound);
         }
         public int GetWoodUse(PlayerRound round, int currentRound )
         {
@@ -96,12 +97,12 @@ namespace Logic.Entities
             if (round.CrystalAveragePrevious == 0)
             {
                 if (round.CrystalPurchased != 0)
-                    round.CrystalAverage = (GetTotalCrystalPrice(round, CurrentRound)) / (round.CrystalPurchased);
+                    round.CrystalAverage = Math.Round((GetTotalCrystalPrice(round, CurrentRound)) / (round.CrystalPurchased));
             }
             else
             {
                 if (round.CrystalPurchased != 0)
-                    round.CrystalAverage = (GetTotalCrystalPrice(round, CurrentRound) + round.CrystalReserves * round.CrystalAveragePrevious) / (round.CrystalPurchased + round.CrystalReserves);
+                    round.CrystalAverage = Math.Round((GetTotalCrystalPrice(round, CurrentRound) + round.CrystalReserves * round.CrystalAveragePrevious) / (round.CrystalPurchased + round.CrystalReserves));
             }
             return round.CrystalAverage;
         }
@@ -155,11 +156,11 @@ namespace Logic.Entities
 
         public double GetQualityFading(PlayerRound round, int currentRound )
         {
-            return GetQualityInfluence(round, CurrentRound) * Game.Rounds[currentRound].QualityFading;
+            return Math.Round(GetQualityInfluence(round, CurrentRound) * Game.Rounds[currentRound].QualityFading);
         }
         public double GetAdFading(PlayerRound round, int currentRound )
         {
-            return GetAdInfluence(round, CurrentRound) * Game.Rounds[currentRound].AdFading;
+            return Math.Round(GetAdInfluence(round, CurrentRound) * Game.Rounds[currentRound].AdFading);
         }
         public double GetQualityInfluence(PlayerRound round, int currentRound )
         {
@@ -194,7 +195,12 @@ namespace Logic.Entities
                 + GetLoanRateCost(round, CurrentRound)
                 + Game.Rounds[currentRound].ManagementCosts;
         }
-
+        /*
+        public double CountYourQualityReduction(PlayerRound round, int currentRound)
+        {
+            return 1.0;
+        }
+        */
         public double CountIncome(PlayerRound round, int currentRound )
         {
             return CountWandsSoldAmount(round, currentRound) * round.WandPrice;

@@ -13,15 +13,6 @@ namespace Logic.Concrete
         private EfWandShopContext context = new EfWandShopContext();
         public IEnumerable<Round> Rounds { get { return context.Rounds; } }
 
-        public void SaveRound(Round round)
-        {
-            if (round.RoundId == 0)
-            {
-                context.Rounds.Add(round);
-            }
-            context.SaveChanges();
-        }
-
         public void SaveRound(int gameId, Round round)
         {
             if (round.RoundId == 0)
@@ -64,6 +55,7 @@ namespace Logic.Concrete
                     WorkerElfPrice = g.WorkerElfPrice,
                     WorkerHumanEfficiency = g.WorkerHumanEfficiency,
                     WorkerHumanPrice = g.WorkerHumanPrice
+                    //,Segments = g.GenerateSegments()
                 };
                 context.Rounds.Add(r);
             }
@@ -105,6 +97,7 @@ namespace Logic.Concrete
                     dbEntry.WorkerElfPrice = round.WorkerElfPrice;
                     dbEntry.WorkerHumanEfficiency = round.WorkerHumanEfficiency;
                     dbEntry.WorkerHumanPrice = round.WorkerHumanPrice;
+                    //dbEntry.Segments = round.UpdateSegments();
                 }
             }
             context.SaveChanges();

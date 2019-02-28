@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Entities
 {
+    [Serializable]
     public class Player
     {
         [ForeignKey("PlayerPart")]

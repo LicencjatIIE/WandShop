@@ -1,5 +1,4 @@
 ﻿@model Logic.Entities.Player
-
 @{
     ViewBag.Title = "Logowanie";
 }
@@ -12,7 +11,7 @@
         </tr>
         <tr>
             <td>
-                @Html.LabelFor(Model =>Model.Login)
+                @Html.LabelFor(Model => Model.Login)
             </td>
             <td>
                 @Html.EditorFor(Model => Model.Login)
@@ -28,7 +27,7 @@
         </tr>
         <tr>
             <td>
-               <input type="submit" name="name" value="Login"/>
+                <input type="submit" name="name" value="Login" />
             </td>
         </tr>
     </table>

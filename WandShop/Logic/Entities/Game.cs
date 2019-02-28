@@ -10,19 +10,35 @@ using System.Web.Mvc;
 
 namespace Logic.Entities
 {
+    [Serializable]
     public class Game
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int GameId { get; set; }
-
         public int MaxRounds { get; set; }
-        
         public int CurrentRound { get; set; } = 0;
+
+        //public SegmentsInfo SegmentsInfo { get; set; } = new SegmentsInfo();
 
         //For EF
         public virtual List<PlayerPart> PlayersPart { get; set; } = new List<PlayerPart>();
         public virtual List<Round> Rounds { get; set; } = new List<Round>();
+
+        //public List<Segment> GenerateSegments()
+        //{
+        //    List<Segment> segments = new List<Segment>();
+        //    for (int i = 0; i < SegmentsInfo.SegmentsAmount; i++)
+        //    {
+        //        segments.Add(GenerateSingle(i));
+        //    }
+        //    return segments;
+        //}
+        //public Segment GenerateSingle(int i)
+        //{
+        //    Segment segment = new Segment();
+        //    return segment;
+        //}
 
         #region Variables
         public double Tax { get; set; } = 0.4;
@@ -70,7 +86,5 @@ namespace Logic.Entities
         public double GeneralMaterialRateCosts { get; set; } = 0.1;
         public double GeneralProcessingRateCosts { get; set; } = 0.5;
         #endregion
-
-
     }
 }

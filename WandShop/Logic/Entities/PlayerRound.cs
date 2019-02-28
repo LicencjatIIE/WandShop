@@ -6,6 +6,7 @@ namespace Logic.Entities
     /// <summary>
     /// Klasa zawierająca wszystkie dane rundy
     /// </summary>
+    [Serializable]
     public class PlayerRound
     {
         public int PlayerRoundId { get; set; }

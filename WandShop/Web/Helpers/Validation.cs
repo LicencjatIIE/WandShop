@@ -41,8 +41,7 @@ namespace Web.Helpers
                 validationErrors.Add("LoanTaken");
 
             return validationErrors;
-        }
-        
+        }     
         public static double TotalExpansesForThisRound(PlayerPart pP)
         {
             return pP.CountAllExpenses(pP.PlayerRounds[pP.CurrentRound], pP.CurrentRound);

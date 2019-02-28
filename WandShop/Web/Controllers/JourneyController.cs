@@ -5,11 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+using System.Net.Http;
+using System.Web.Http;
+using System.Net;
+
 using Web.Models;
+using System.Web.Http.Description;
+using System.Web.Http.Results;
 
 namespace Web.Controllers
 {
-    public class JourneyController : Controller
+    public class JourneyController : ApiController //Controller //  
     {
         private IGameRepository gameRepository;
         private IPlayerPartRepository playerPartRepository;
@@ -31,12 +38,24 @@ namespace Web.Controllers
             this.roundRepository = roundRepository;
         }
 
+        
+        public JsonResult<GameListViewModel> Index()
+        {
+            var model = new GameListViewModel() { Games = gameRepository.Games.ToList() };
+            return Json(model);
+            //return View(model);
+        }
+
+        /*
+        [HttpGet]
         public ActionResult Index()
         {
-            GameListViewModel model = new GameListViewModel() { Games = gameRepository.Games.ToList() };
-            
+            var model = new GameListViewModel() { Games = gameRepository.Games.ToList() };
             return View(model);
+            //return View(model);
         }
+        */
+        /*
         public ActionResult CreateFullGame()
         {
             return View(new CreateFullGameModel());
@@ -161,6 +180,7 @@ namespace Web.Controllers
 
             return model;
         }
+
 
         #region Helpers
 
@@ -348,6 +368,7 @@ namespace Web.Controllers
         }
 
         #endregion
+        */
     }
 
 }

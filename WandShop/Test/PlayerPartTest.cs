@@ -255,7 +255,7 @@ namespace Test
             PlayerRound pr2 = new PlayerRound() { CrystalPurchased = 0 };
             pp2.PlayerRounds.Add(pr2);
 
-            double d1 = 0, d2 = 0, d3 = 0;
+            double d1 = 0, d2 = 0;
             //Działanie
             d1 = pp1.GetCrystalConstCost(pr1, 0);
             d2 = pp2.GetCrystalConstCost(pr2, 0);
@@ -276,7 +276,7 @@ namespace Test
             PlayerRound pr2 = new PlayerRound() { CrystalPurchased = 100 };
             pp2.PlayerRounds.Add(pr2);
 
-            double d1 = 0, d2 = 0, d3 = 0;
+            double d1 = 0, d2 = 0;
             //Działanie
             d1 = pp1.GetTotalCrystalPrice(pr1, 0);
             d2 = pp2.GetTotalCrystalPrice(pr2, 0);
@@ -297,7 +297,7 @@ namespace Test
             PlayerRound pr2 = new PlayerRound() { WandsProducedAmount = 100 };
             pp2.PlayerRounds.Add(pr2);
 
-            double d1 = 0, d2 = 0, d3 = 0;
+            double d1 = 0, d2 = 0;
             //Działanie
             d1 = pp1.GetWoodUse(pr1, 0);
             d2 = pp2.GetWoodUse(pr2, 0);
@@ -318,7 +318,7 @@ namespace Test
             PlayerRound pr2 = new PlayerRound() { WandsProducedAmount = 100 };
             pp2.PlayerRounds.Add(pr2);
 
-            double d1 = 0, d2 = 0, d3 = 0;
+            double d1 = 0, d2 = 0;
             //Działanie
             d1 = pp1.GetCrystalUse(pr1, 0);
             d2 = pp2.GetCrystalUse(pr2, 0);

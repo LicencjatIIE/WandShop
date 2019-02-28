@@ -1,4 +1,11 @@
-﻿@model Web.Models.GameListViewModel
+﻿<script>
+    //fetch('Journey/Index')
+    //.then((response) =>
+    //{ return response.json() })
+    //.then((json) =>
+    //{console.log(json) })
+</script>
+@model Web.Models.GameListViewModel
 
 @{
     ViewBag.Title = "Lista Twoich gier";
@@ -22,10 +29,9 @@
             <td>@item.MaxRounds</td>
             <td>@item.CurrentRound</td>
             <td>@item.PlayersPart.Count</td>
-            <td>@Html.ActionLink("Sprawdź", "Check", new {gameId = item.GameId})</td>
+            <td>@Html.ActionLink("Sprawdź", "Check", new { gameId = item.GameId })</td>
         </tr>
     }
 </table>
 
 @Html.ActionLink("Dodaj grę", "CreateFullGame", null, new { @class = "btn-group" })
-
