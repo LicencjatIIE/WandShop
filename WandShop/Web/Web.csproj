@@ -200,6 +200,7 @@
     <Compile Include="Models\CreateFullGameModel.cs" />
     <Compile Include="Models\CreateGameParamModel.cs" />
     <Compile Include="Models\GameListViewModel.cs" />
+    <Compile Include="Models\Encryption.cs" />
     <Compile Include="Models\PlayerPlayRoundModel.cs" />
     <Compile Include="Models\PlayerRoundsViewModel.cs" />
     <Compile Include="Models\PlayerRoundViewModel.cs" />

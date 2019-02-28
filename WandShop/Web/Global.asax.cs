@@ -14,8 +14,8 @@ namespace Web
         {
             AreaRegistration.RegisterAllAreas();
 
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            //RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //GlobalConfiguration.Configure(WebApiConfig.Register);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
 }

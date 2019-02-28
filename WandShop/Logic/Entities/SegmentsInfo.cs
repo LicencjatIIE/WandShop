@@ -10,5 +10,6 @@ namespace Logic.Entities
     //{
     //    public int TotalPopulation { get; set; } = 1000;
     //    public int SegmentsAmount { get; set; } = 6;
+
     //}
 }
